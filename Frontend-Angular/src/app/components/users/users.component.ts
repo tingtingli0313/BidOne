@@ -12,9 +12,6 @@ import { User } from '../../models/User';
 
 export class UsersComponent {
   users: User[] = [];
-  firstName: string;
-  lastName: string;
-  isCompleted: boolean;
   errorMessage: string = "";
   private readonly endpoints: ApiEndpoints;
   private apiService = inject(ApiService);
@@ -40,19 +37,19 @@ export class UsersComponent {
     );
   }
 
-  handleAdd() {
-    if (!this.firstName || !this.lastName){
+  handleAdd(user: any) {
+    if (!user.firstName || !user.lastName){
       this.errorMessage = "FirstName or lastName can not be empty";
       return;
     }
 
     this.errorMessage = "";
-    const newUser = { firstName : this.firstName, lastName: this.lastName };
+    const newUser = { firstName : user.firstName, lastName: user.lastName };
     var response = this.apiService.post<any, User>(ApiEndpointKey.TODOITEMS, newUser).subscribe(
         {
           next: (response) => {
             this.getItems();
-            this.handleClear();
+            this.handleClear(user);
           },
           error: (error) => {
             // Handle any errors
@@ -68,8 +65,8 @@ export class UsersComponent {
     );
   }
 
-  handleClear() {
-    this.firstName = '';
-    this.lastName = '';
+  handleClear(user: User) {
+    user.firstName = '';
+    user.lastName = '';
   }
 }

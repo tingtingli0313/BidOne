@@ -1,60 +1,7 @@
 <div class="container">
     <div class="row">
       <div class="col">
-        <div class="container">
-          <h1>Add User</h1>
-          <div class="mb-3 row">
-            <label
-              for="formAddTodoItem"
-              class="form-label col-form-label col-sm-2"
-              >FristName</label
-            >
-            <div class="col-md-6">
-              <input
-                #addItemInput
-                placeholder="Enter first name"
-                type="text"
-                id="formAddTodoItem"
-                class="form-control"
-                [value]="firstName"
-                [(ngModel)]="firstName"
-              />
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label
-              for="formAddTodoItem"
-              class="form-label col-form-label col-sm-2"
-              >LastName</label
-            >
-            <div class="col-md-6">
-              <input
-               
-                placeholder="Enter last name"
-                type="text"
-                id="formAddTodoItem"
-                class="form-control"
-                [value]="lastName"
-                [(ngModel)]="lastName"
-              />
-            </div>
-          </div>
-          <div class="mb-3 offset-md-2 row">
-            <div class="hstack gap-2">
-              <button type="button" class="btn btn-primary" (click)="handleAdd()"          
-              >
-                Add Item
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                (click)="handleClear()"
-              >
-                Clear
-              </button>
-            </div>
-          </div>
-        </div>
+       <app-add-user  (onAddTask)="handleAdd($event)" (onClearTask)="handleClear($event)"></app-add-user>
       </div>
       <p *ngIf="errorMessage" class="error-msg">{{errorMessage}}</p>
       <div class="row">
@@ -68,11 +15,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+                <!-- <app-user *ngFor="let user of users"  [user]="user"></app-user> -->
+             <tr *ngFor="let user of users">
                 <td>{{ user.id }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
-            </tr>
+            </tr> 
              </tbody>
           </table> 
         </div>

@@ -13,18 +13,18 @@ public class UserService : IUserService
         _dbContext = toDoContext;
     }
 
-    public async Task<Result<User>> AddAsync(User newItem)
+    public async Task<Result<User>> AddAsync(User user)
     {
-        if(_dbContext.GetItems().Any(x => string.Equals(x.FirstName.ToLowerInvariant(), newItem.FirstName.ToLowerInvariant())
-                                       && string.Equals(x.LastName.ToLowerInvariant(), newItem.LastName.ToLowerInvariant())))
+        if(_dbContext.GetItems().Any(x => string.Equals(x.FirstName.ToLowerInvariant(), user.FirstName.ToLowerInvariant())
+                                       && string.Equals(x.LastName.ToLowerInvariant(), user.LastName.ToLowerInvariant())))
         {
-            return Result<User>.Conflict($"user name {newItem.ToString()} is already exist.");
+            return Result<User>.Conflict($"user name {user.ToString()} is already exist.");
         }
 
-        _dbContext.GetItems().Add(newItem);
+        _dbContext.GetItems().Add(user);
         await _dbContext.SaveChangesAsync();
 
-        return new Result<User>(newItem);
+        return new Result<User>(user);
     }
 
     public async Task<Result<List<User>>> GetAllUsersAsync()

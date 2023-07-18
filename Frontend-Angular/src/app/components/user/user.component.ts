@@ -8,13 +8,8 @@ import { User } from 'src/app/models/User';
 })
 export class UserComponent implements OnInit {
     @Input() user: User;
-    @Output() onClickReminder: EventEmitter<User> = new EventEmitter();
 
     constructor() {}
 
     ngOnInit(): void {}
-    
-    handleMarkAsComplete(task) {
-      this.onClickReminder.emit(task);
-    }
 }
