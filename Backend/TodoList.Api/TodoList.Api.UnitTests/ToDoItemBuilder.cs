@@ -1,13 +1,12 @@
 using System;
-using TodoList.Core;
+using TodoList.Core.Models;
 
 namespace TodoList.Api.UnitTests;
 
-// Learn more about test builders:
-// https://ardalis.com/improve-tests-with-the-builder-pattern-for-test-data
+
 public class ToDoItemBuilder
 {
-    private TodoItem _todo = new TodoItem("test");
+    private User _todo = new User("test", "John");
 
     public ToDoItemBuilder Id(Guid id)
     {
@@ -15,18 +14,18 @@ public class ToDoItemBuilder
         return this;
     }
 
-    public ToDoItemBuilder Description(string description)
+    public ToDoItemBuilder Description(string firstName)
     {
-        _todo.Description = description;
+        _todo.FirstName = firstName;
         return this;
     }
 
     public ToDoItemBuilder WithDefaultValues()
     {
-        _todo = new TodoItem("Test Item") { Id = new Guid(), Description = "Test Description" };
+        _todo = new User("firstName", "lastName") { Id = new Guid() };
 
         return this;
     }
 
-    public TodoItem Build() => _todo;
+    public User Build() => _todo;
 }

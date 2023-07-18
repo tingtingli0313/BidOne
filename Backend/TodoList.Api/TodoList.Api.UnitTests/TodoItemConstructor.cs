@@ -1,46 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TodoList.Core;
+﻿using TodoList.Core.Models;
 using Xunit;
 
 namespace TodoList.Api.UnitTests
 {
     public class TodoItemConstructor
     {
-        private string _testDescription = "test name";
-        private TodoItem? _testItem;
+        private string _testFirstName = "John";
+        private string _testLastName = "Doe";
 
-        private TodoItem CreateItem()
+        private User? _testItem;
+
+        private User CreateUser()
         {
-            return new TodoItem(_testDescription);
+            return new User(_testFirstName, _testLastName);
         }
 
         [Fact]
         public void InitializesName()
         {
-            _testItem = CreateItem();
+            var _testUser = CreateUser();
 
-            Assert.Equal(_testDescription, _testItem.Description);
-        }
-
-        [Fact]
-        public void InitializesPriority()
-        {
-            _testItem = CreateItem();
-
-            Assert.False(_testItem.IsCompleted);
-        }
-
-        [Fact]
-        public void InitializesDescriptionNotNull()
-        {
-            _testItem = CreateItem();
-
-            Assert.NotNull(_testItem.Description);
-            Assert.NotNull(_testItem.Id);
+            Assert.Equal(_testFirstName, _testUser.FirstName);
+            Assert.Equal(_testLastName, _testUser.LastName);
         }
     }
 }

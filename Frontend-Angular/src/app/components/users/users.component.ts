@@ -2,17 +2,18 @@ import { Component, inject } from '@angular/core';
 import { ApiService } from '../../../api/api.service';
 import { ApiEndpointKey, ApiEndpoints} from '../../../api/api.model';
 import { endpoints } from '../../../api/api-endpoints-map';
-import { TodoItem } from '../../models/TodoItem';
+import { User } from '../../models/User';
 
 @Component({
-  selector: 'todo-item',
-  templateUrl: './todo-items.component.html',
-  styleUrls: ['./todo-items.component.css'],
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css'],
 })
 
-export class ToDoComponent {
-  items: TodoItem[] = [];
-  description: string;
+export class UsersComponent {
+  users: User[] = [];
+  firstName: string;
+  lastName: string;
   isCompleted: boolean;
   errorMessage: string = "";
   private readonly endpoints: ApiEndpoints;
@@ -26,15 +27,11 @@ export class ToDoComponent {
      this.getItems();
   }
 
-  onInput(description : string){
-    this.description = description;
-  }
-
   getItems() {
     var response = this.apiService.get<any>(ApiEndpointKey.TODOITEMS).subscribe(
       {
         next: (response) => {
-          this.items = response;
+          this.users = response;
         },
         error: (error) => {
           this.errorMessage = "Error on loading items from backend server. Please make sure your host server is up running.";
@@ -44,14 +41,14 @@ export class ToDoComponent {
   }
 
   handleAdd() {
-    if (!this.description){
-      this.errorMessage = "Description can not be empty";
+    if (!this.firstName || !this.lastName){
+      this.errorMessage = "FirstName or lastName can not be empty";
       return;
     }
 
     this.errorMessage = "";
-    const newTodoItem = { description : this.description };
-    var response = this.apiService.post<any, TodoItem>(ApiEndpointKey.TODOITEMS, newTodoItem).subscribe(
+    const newUser = { firstName : this.firstName, lastName: this.lastName };
+    var response = this.apiService.post<any, User>(ApiEndpointKey.TODOITEMS, newUser).subscribe(
         {
           next: (response) => {
             this.getItems();
@@ -72,23 +69,7 @@ export class ToDoComponent {
   }
 
   handleClear() {
-    this.description = '';
-  }
-
-  handleMarkAsComplete(item: TodoItem) {
-    if(item.isCompleted){
-      return;
-    }
-    item.isCompleted = true;
-    var response = this.apiService.put<any, TodoItem>(ApiEndpointKey.TODOITEMS, item).subscribe(
-      {
-        next: (response) => {
-          this.getItems();
-        },
-        error: (error) => {
-          this.errorMessage = "Error on update item from backend server.";
-        }
-      }
-    );
+    this.firstName = '';
+    this.lastName = '';
   }
 }

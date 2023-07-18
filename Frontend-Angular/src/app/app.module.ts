@@ -4,11 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { ToDoComponent } from './components/todo-items/todo-items.component';
-import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { UsersComponent } from './components/users/users.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
-  declarations: [AppComponent, ToDoComponent, TodoItemComponent],
+  declarations: [AppComponent, UsersComponent, UserComponent],
   imports: [BrowserModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

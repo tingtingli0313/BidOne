@@ -4,7 +4,7 @@ import { AppModule } from '../../app.module'; // Import the module containing Ap
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApiService } from 'src/api/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToDoComponent } from './todo-items.component';
+import { UsersComponent } from './users.component';
 import { of } from 'rxjs';
 class MockApiService {
   get(any: any) {
@@ -12,9 +12,9 @@ class MockApiService {
   }
 }
  
-describe('ToDoComponent', () => {
-  let component: ToDoComponent;
-  let fixture: ComponentFixture<ToDoComponent>;
+describe('UsersComponent', () => {
+  let component: UsersComponent;
+  let fixture: ComponentFixture<UsersComponent>;
   let apiService: ApiService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('ToDoComponent', () => {
       providers: [{provide:ApiService}]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ToDoComponent);
+    fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -32,21 +32,21 @@ describe('ToDoComponent', () => {
        apiService = TestBed.inject(ApiService);
     }
   );
-  describe('to do items', () => {
+  describe('Users ', () => {
     it('component should be created', () => {
         expect(component).toBeTruthy();
     });
 
     it('should display the value returned by the API service', () => {
-      spyOn(apiService, 'get').and.returnValue( of([{"description" : "my task one."}]));
+      spyOn(apiService, 'get').and.returnValue( of([{"firstName" : "user1.", "lastName": "John"}]));
    
-      expect(component.items.length == 1);
+      expect(component.users.length == 1);
     });
 
     it('should display no item when api load item failed', () => {
       spyOn(apiService, 'get').and.returnValue( of([{"error" : "internal server error"}]));
 
-      expect(component.items.length == 0);
+      expect(component.users.length == 0);
     });
   });
 });

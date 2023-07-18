@@ -2,25 +2,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using TodoList.Core;
+using TodoList.Core.Models;
 using TodoList.Infrastructure.Data;
 
 namespace TodoList.Api;
 
 public static class SeedData
 {
-    public static readonly TodoItem ToDoItem1 = new TodoItem
-    (
-        "Try to get the sample to build."
-    );
-    public static readonly TodoItem ToDoItem2 = new TodoItem
-    (
-       "Review the different projects in the solution and how they relate to one another."
-    );
-    public static readonly TodoItem ToDoItem3 = new TodoItem
-    (
-       "Make sure all the tests run and review what they are doing."
-    );
+    public static readonly User user1 = new User("tester1", "John");
+    public static readonly User user2 = new User("tester2", "John");
+    public static readonly User user3 = new User("tester3", "John");
+
 
     public static void Initialize(IServiceProvider serviceProvider)
     {
@@ -28,7 +20,7 @@ public static class SeedData
             serviceProvider.GetRequiredService<DbContextOptions<TodoContext>>()))
         {
             // Look for any TODO items.
-            if (dbContext.ToDoItems.Any())
+            if (dbContext.Users.Any())
             {
                 return;  
             }
@@ -38,13 +30,13 @@ public static class SeedData
     }
     public static void PopulateTestData(TodoContext dbContext)
     {
-        foreach (var item in dbContext.ToDoItems)
+        foreach (var item in dbContext.Users)
         {
             dbContext.Remove(item);
         }
-        dbContext.ToDoItems.Add(new Core.TodoItem(ToDoItem1.Description));
-        dbContext.ToDoItems.Add(new Core.TodoItem(ToDoItem2.Description));
-        dbContext.ToDoItems.Add(new Core.TodoItem(ToDoItem3.Description));
+        dbContext.Users.Add(user1);
+        dbContext.Users.Add(user2);
+        dbContext.Users.Add(user3);
 
         dbContext.SaveChanges();
     }

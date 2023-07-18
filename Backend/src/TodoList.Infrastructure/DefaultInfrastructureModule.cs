@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using TodoList.Core;
+using TodoList.Core.Models;
 using Module = Autofac.Module;
 
 namespace TodoList.Infrastructure;
@@ -13,7 +13,7 @@ public class DefaultInfrastructureModule : Module
     {
         _isDevelopment = isDevelopment;
         var coreAssembly =
-          Assembly.GetAssembly(typeof(TodoItem)); 
+          Assembly.GetAssembly(typeof(User)); 
         var infrastructureAssembly = Assembly.GetAssembly(typeof(StartupSetup));
         if (coreAssembly != null)
         {

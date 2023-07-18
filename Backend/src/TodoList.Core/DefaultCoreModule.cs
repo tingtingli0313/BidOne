@@ -12,8 +12,8 @@ public class DefaultCoreModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterType<ToDoItemService>()
-            .As<IToDoItemService>().InstancePerLifetimeScope();
+        builder.RegisterType<UserService>()
+            .As<IUserService>().InstancePerLifetimeScope();
     }
 }
 

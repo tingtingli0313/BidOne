@@ -1,6 +1,4 @@
-﻿using Ardalis.HttpClientTestExtensions;
-using Azure;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using TodoList.Api.ApiModels;
 
@@ -28,9 +26,9 @@ public class ToDoItems : IClassFixture<TestWebApplicationFactory<Startup>>
     [Fact]
     public async Task ReturnsAllDefaultTodoItems()
     {
-        var result = await _httpClient.GetAsync("/api/todoitems");
+        var result = await _httpClient.GetAsync("/api/users");
         var content = await result.Content.ReadAsStringAsync();
-        var allItems = JsonSerializer.Deserialize<List<TodoItemDTO>>(content, EnumsFromStrings);
+        var allItems = JsonSerializer.Deserialize<List<UserDTO>>(content, EnumsFromStrings);
 
         Assert.True(result.IsSuccessStatusCode);
         Assert.True(allItems.Count() == 3);

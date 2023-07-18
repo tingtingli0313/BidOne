@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using TodoList.Core;
 using TodoList.Core.Interfaces;
+using TodoList.Core.Models;
 
 namespace TodoList.Infrastructure.Data;
 public class TodoContext : DbContext, IToDoContext
@@ -12,7 +12,7 @@ public class TodoContext : DbContext, IToDoContext
     {
     }
 
-    public DbSet<TodoItem> ToDoItems { set; get; }
+    public DbSet<User> Users { set; get; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,8 +32,8 @@ public class TodoContext : DbContext, IToDoContext
         return SaveChangesAsync().GetAwaiter().GetResult();
     }
 
-    public DbSet<TodoItem> GetItems()
+    public DbSet<User> GetItems()
     {
-        return ToDoItems;
+        return Users;
     }
 }
